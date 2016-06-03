@@ -13,11 +13,12 @@ public:
 	void Update(float dt) override;
 	void Shoot(cocos2d::Layer *layer);
 	void ChooseNextGun();
-	void Run();
 	void Stay();
 	Vec2 GetPositionHero();
+	void SetGravityHero(float gravity);
+	bool m_onGround = false;
 private:
-	enum state {stay, run, gun} m_state;
+	enum state {stay, run, gun, jump} m_state;
 	Player();
 	void initOptions();
 	void SetState(double const& move);
@@ -41,14 +42,13 @@ private:
 	bool m_isShooting;
 	//Vector<SpriteFrame*> animFrames;
 
-	//void Run();
 	void Left();
 	void Right();
 	cocos2d::RefPtr<cocos2d::Animate> m_run;
 	cocos2d::RefPtr<cocos2d::Animate> m_left;
 	cocos2d::RefPtr<cocos2d::Animate> m_right;
-	float m_dx;
-	float m_dy;
+	float m_dx = 0;
+	float m_dy = 0;
 	//enum state { run, stay, left, right } m_state;
 
 };

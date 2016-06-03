@@ -50,6 +50,6 @@
   <object id="74" type="npc" x="1572.77" y="1379.12" width="26.7564" height="28.4827">
    <ellipse/>
   </object>
-  <object id="90" type="hero" x="77.1213" y="1301.18" width="102" height="128"/>
+  <object id="90" type="hero" x="149.121" y="1123.18" width="102" height="128"/>
  </objectgroup>
 </map>

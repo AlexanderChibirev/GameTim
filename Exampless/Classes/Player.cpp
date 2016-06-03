@@ -205,6 +205,11 @@ Vec2 Player::GetPositionHero()
 	return { m_dx,m_dy } ;
 }
 
+void Player::SetGravityHero(float gravity)
+{
+	m_dy = gravity;
+}
+
 void Player::Update(float dt)
 {
 	double x = m_moveController->getVelocity().x;
@@ -226,76 +231,16 @@ void Player::Update(float dt)
 		dy = x * sin(angle); //+ y * cos(angle);
 	}
 	m_dx = dx;
-	m_dy = dy;
-	x = dx + this->getPosition().x;
-	y = dy + this->getPosition().y;
+	
+	x = dx*5 + this->getPosition().x;
+	y = dy*5 + this->getPosition().y;
 
-	this->SetDirection(MovementDirection(dx, dy));
+	this->setPosition(x, m_dy + y);
+	//this->SetDirection(MovementDirection(dx, dy - 1));
 
-	m_shootDirection = (MovementDirection(-sin(angle), cos(angle)));
-	this->Move(dt);
-//	m_legs->setPosition(this->getPosition());
-	//const char * c = (std::to_string(int(x))).c_str();
-	//CCLOG("y = ");
-	//CCLOG(c);
-	/*if (abs(m_moveController->getVelocity().x) + abs(m_moveController->getVelocity().y) != 0)
-	{
-		float angle = atan2(m_moveController->getVelocity().y, m_moveController->getVelocity().x);
-		if (abs(angle) < 0.75)
-		{
-			CCLOG("R");
-			this->stopAllActions();
-			this->Right();
-			m_state = run;
-		}
-		if (abs(angle) > 2.4 )
-		{
-			CCLOG("L");
-			this->stopAllActions();
-			this->Left();
-			m_state = run;
-		}
-	}
-	else
-	{
-
-	}*/
+	//m_shootDirection = (MovementDirection(-sin(angle), cos(angle)));
+	//this->Move(dt);
 	SetState(dx + dy);
-	//angle = atan2(dy, dx);
-	//if (abs(dx) + abs(dy) != 0)
-	//{
-	//	if (m_state != run && abs(angle) < 0.75)
-	//	{
-	//		CCLOG("R");
-	//		this->stopAllActions();
-	//		this->Right();
-	//		m_state = run;
-	//	}
-	//	else if (m_state != run && abs(angle) > 2.4)
-	//	{
-	//		CCLOG("L");
-	//		this->stopAllActions();
-	//		this->Left();
-	//		m_state = run;
-	//	}
-	//	else {
-	//		this->stopAllActions();
-	//		this->Stay();
-	//		m_state = stay;
-	//	}
-	//}
-	//else
-	//{
-	//	this->stopAllActions();
-	//	m_state = stay;
-	//}
-	//////func
-	//double rotateX = m_rotateController->getVelocity().x;
-
-	//this->setRotation(this->getRotation() + rotateX);
-//	m_legs->setRotation(this->getRotation());
-
-
 }
 
 void Player::Shoot(cocos2d::Layer * layer)
@@ -316,12 +261,6 @@ void Player::Shoot(cocos2d::Layer * layer)
 
 	}
 }
-
-
-//void Player::Run()
-//{
-//	runAction(RepeatForever::create(m_currentState[1]));
-//}
 
 void Player::Stay()
 {

@@ -29,7 +29,6 @@ private:
 	//Joystick *m_joyR;
 
 	Player *m_player;
-	bool onGround = false;
 	std::vector<cocos2d::Rect> m_obstacles;
 
 	Sprite *cameraTarget;

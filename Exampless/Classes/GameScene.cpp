@@ -137,19 +137,18 @@ void GameScene::update(float dt)
 	this->runAction(camera);
 
 	float dx = m_player->GetPositionHero().x;
-	float dy;
+	float dy = m_player->GetPositionHero().y;
 	float x = m_player->getPosition().x;
 	float y = m_player->getPosition().y;
 
 	
-	if(onGround)
+	if(m_player->m_onGround)
 	{
-		dy = 0;
+		m_player->SetGravityHero(0);
 	}
 	else
 	{
-		dy = -1;
-		m_player->setPosition(x, y - 1);
+		m_player->SetGravityHero(-3);
 	}
 	m_joy->setPosition(x - 470, y - 300);
 	for (auto &it : m_obstacles)
@@ -162,12 +161,12 @@ void GameScene::update(float dt)
 			}
 			if (dy < 0)
 			{
-				onGround = true;
-				m_player->setPosition(x, y+0.1);//если падаем
+				m_player->m_onGround = true;
+				m_player->setPosition(x, y+3.1);//если падаем
 			}
-			if (dx>0)
+			if (dx > 0)
 			{
-				m_player->setPosition(x - 4.15 , y);
+				m_player->setPosition(x - 5 , y);//4.15 с мотором
 			}
 			if (dx < 0)
 			{
