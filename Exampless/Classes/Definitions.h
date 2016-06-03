@@ -1,0 +1,1 @@
+const float TRANSITION_TIME = 0.5f;
