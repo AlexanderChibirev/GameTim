@@ -4,6 +4,8 @@
 #include "Player.h"
 #include "cocos_custom.h"
 #include "CustomMap.h"
+#include "ui/CocosGUI.h"
+#include "cocos2d.h"
 
 class GameScene : public cocos2d::Layer
 {
@@ -19,8 +21,9 @@ public:
 
 	void update(float dt);
 private:
+	void MoveUp(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eventType);
 	bool onTouchBegan(Touch* pTouches, Event* event);
-
+	ui::Button* m_jumpButtonPlay = ui::Button::create("jump.png", "jumpClicked.png");
 	CCustomMap *m_customMap = nullptr;
 	void SetJoystick(Joystick *joy) { m_joy = joy; };
 	void ChooseGun(cocos2d::Ref *sender);
@@ -33,5 +36,6 @@ private:
 
 	Sprite *cameraTarget;
 	Follow *camera;
+	bool m_clickedJump = false;
 };
 
