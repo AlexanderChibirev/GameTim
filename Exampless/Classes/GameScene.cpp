@@ -33,19 +33,19 @@ bool GameScene::init()
 	{
 		return false;
 	}
+
+	/*CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(POINT_SOUND.c_str());
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(LOSE_SOUND.c_str());
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(DROP_SOUND.c_str());
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic(BG_SOUND.c_str());*/
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 
+	auto backgrowndSprite = Sprite::create("SS.jpg");
+	backgrowndSprite->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 
-	//auto backgrowndSprite = Sprite::create("bg.jpg");
-	//backgrowndSprite->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-
-	//this->addChild(backgrowndSprite);
-	m_customMap = make_node<CCustomMap>("tmx/layer_1.tmx");
-	addChild(m_customMap);
-
-
+	this->addChild(backgrowndSprite);
 	auto joy = Joystick::create();
 	//auto joyR = Joystick::create();
 	//joyR->SetCenter(Director::getInstance()->getVisibleSize().width - 128, 0);
@@ -53,10 +53,7 @@ bool GameScene::init()
 	//m_joyR = joyR;
 
 	SpriteFrameCache *sharedSpriteFrameCache = SpriteFrameCache::getInstance();
-	sharedSpriteFrameCache->addSpriteFramesWithFile("idleHero.plist");
-	sharedSpriteFrameCache->addSpriteFramesWithFile("fireHero.plist");
-	sharedSpriteFrameCache->addSpriteFramesWithFile("runHero.plist");
-	sharedSpriteFrameCache->addSpriteFramesWithFile("runHeroLeft.plist");
+	sharedSpriteFrameCache->addSpriteFramesWithFile("idle.plist");
 	sharedSpriteFrameCache->addSpriteFramesWithFile("move_with_knife.plist");
 	sharedSpriteFrameCache->addSpriteFramesWithFile("melee_knife.plist");
 
@@ -68,70 +65,33 @@ bool GameScene::init()
 	sharedSpriteFrameCache->addSpriteFramesWithFile("strafe_left.plist");
 	sharedSpriteFrameCache->addSpriteFramesWithFile("strafe_right.plist");
 
-	//auto legs = Legs::create();
+	auto legs = Legs::create();
 
 
-	m_player = Player::create(joy);//, legs);
-	this->m_player->setPosition((m_customMap->GetHeroWorldPosition().origin));
-
-
-	cameraTarget = Sprite::create();
-	cameraTarget->setPositionX(m_player->getPosition().x); // set to players x 
-	cameraTarget->setPositionY(m_player->getPosition().y); // center of height 
-	cameraTarget->retain();
-	camera = Follow::create(cameraTarget, Rect::ZERO);
-	camera->retain();
-	this->runAction(camera);
-	m_obstacles = m_customMap->GetObcaslePosition();
-
-	//legs->setPosition(500, 500);
-	//this->addChild(legs);
-
-	this->addChild(joy);
-
-
-	m_jumpButtonPlay->setPosition(Point(m_player->getPosition()));
-	m_jumpButtonPlay->addTouchEventListener(CC_CALLBACK_2(GameScene::MoveUp, this));
-
-	this->addChild(m_jumpButtonPlay);
+	m_player = Player::create(joy, legs);
+	this->m_player->setPosition(500, 500);
+	legs->setPosition(500, 500);
+	this->addChild(legs);
 	this->addChild(m_player);
 
 	//this->schedule(schedule_selector(player->Shoot), 2);
 
-
+	this->addChild(joy);
 	//this->addChild(joyR);
 
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
-	//listener->onTouchMoved = CC_CALLBACK_2(GameScene::UpdateCamera, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-	//auto playItem = MenuItemImage::create("jump.png", "jumpClicked.png", CC_CALLBACK_1(GameScene::ChooseGun, this));
-	//playItem->setPosition(Point((m_customMap->GetHeroWorldPosition().origin)));
+	auto playItem = MenuItemImage::create("GUN.png", "GUN.png", CC_CALLBACK_1(GameScene::ChooseGun, this));
+	playItem->setPosition(Point(visibleSize.width - playItem->getContentSize().width + origin.x, visibleSize.height / 2 + origin.y));
 
-	//auto menu = Menu::create(playItem, NULL);
-	//menu->setPosition(Point::ZERO);
-	//this->addChild(menu);
+	auto menu = Menu::create(playItem, NULL);
+	menu->setPosition(Point::ZERO);
+	this->addChild(menu);
 
-
-	this->scheduleUpdate();
 	return true;
 }
-
-
-void GameScene::MoveUp(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eventType)
-{
-	if (cocos2d::ui::Widget::TouchEventType::BEGAN == eventType)
-	{
-		m_clickedJump = true;
-	}
-	else
-	{
-		m_clickedJump = false;
-	}
-	return;
-}
-
 
 bool GameScene::onTouchBegan(Touch * pTouches, Event * event)
 {
@@ -147,54 +107,3 @@ void GameScene::ChooseGun(cocos2d::Ref *sender)
 	m_player->ChooseNextGun();
 }
 
-
-void GameScene::update(float dt)
-{
-	cameraTarget->setPositionX(m_player->getPosition().x); // set to players x 
-	cameraTarget->setPositionY(m_player->getPosition().y); // center of height 
-	cameraTarget->retain();
-
-	camera = Follow::create(cameraTarget, Rect::ZERO);
-	camera->retain();
-	this->runAction(camera);
-
-	float dx = m_player->GetPositionHero().x;
-	float dy = m_player->GetPositionHero().y;
-	float x = m_player->getPosition().x;
-	float y = m_player->getPosition().y;
-
-
-	if (m_player->m_onGround)
-	{
-		m_player->SetGravityHero(0);
-	}
-	else
-	{
-		m_player->SetGravityHero(-3);
-	}
-	m_jumpButtonPlay->setPosition(Point(x + 400, y - 250));
-	m_joy->setPosition(x - 470, y - 300);
-	for (auto &it : m_obstacles)
-	{
-		if (it.intersectsRect(m_player->getBoundingBox()))
-		{
-			if (dy > 0)//если мы шли наверх
-			{
-				m_player->setPosition(x, y - 2.8);//зависит от скорости прыжка
-			}
-			if (dy < 0)
-			{
-				m_player->m_onGround = true;
-				m_player->setPosition(x, y + 3.5);//если падаем
-			}
-			if (dx > 0)
-			{
-				m_player->setPosition(x - 5, y);//4.15 с мотором
-			}
-			if (dx < 0)
-			{
-				m_player->setPosition(x + 4.15, y);
-			}
-		}
-	}
-}

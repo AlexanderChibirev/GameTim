@@ -12,7 +12,7 @@ public:
     /// @param from - point in world coordinates
     /// @param to - point in world coordinates
     bool CanWalkDirectly(const cocos2d::Vec2 &from, const cocos2d::Vec2 &to)const override;
-
+	bool CanWalkDirectlyForEnemy(const cocos2d::Vec2 &from, const cocos2d::Vec2 &to)const;
     /// @param worldPosition - point in world coordinates
     bool CanStandOn(const cocos2d::Vec2 &worldPosition)const override;
 
@@ -27,10 +27,12 @@ private:
     bool InitPassabilityMap();
     bool LoadObstacles();
     bool LoadUnits();
+	bool LoadObstaclesForEnemy();
     cocos2d::Rect AsRect(const cocos2d::ValueMap &properties)const;
 
     std::vector<bool> m_passability;
     std::vector<cocos2d::Rect> m_obstacles;
+	std::vector<cocos2d::Rect> m_obstaclesForEnemy;
     std::vector<cocos2d::Vec2> m_enemyPositions;
     cocos2d::Rect m_heroPosition;
 	//cocos2d::Sprite* _mySprite = cocos2d::Sprite::create();;

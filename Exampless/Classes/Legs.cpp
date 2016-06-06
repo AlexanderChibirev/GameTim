@@ -73,16 +73,12 @@ void Legs::Update(float dx, float dy)
 			this->Left();
 			m_state = left;
 		}
-		else if (m_state != run && (abs(angle) <= 2.4 && abs(angle) >= 0.75))//хуйня для ходьбы вперед, нужна для прыжка крч
+		else if (m_state != run && (abs(angle) <= 2.4 && abs(angle) >= 0.75))
 		{
-			/*CCLOG("RUN");
+			CCLOG("RUN");
 			this->stopAllActions();
 			this->Run();
-			m_state = run;*/
-			CCLOG("R");
-			this->stopAllActions();
-			this->Right();
-			m_state = right;
+			m_state = run;
 		}
 	}
 	else

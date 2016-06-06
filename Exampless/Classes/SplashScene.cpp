@@ -27,16 +27,22 @@ Scene* SplashScene::createScene()
 // on "init" you need to initialize your instance
 bool SplashScene::init()
 {
+	//1. super init first
 	if (!Layer::init())
 	{
 		return false;
 	}
+
+	/*CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(POINT_SOUND.c_str());
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(LOSE_SOUND.c_str());
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(DROP_SOUND.c_str());
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic(BG_SOUND.c_str());*/
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	this->scheduleOnce(schedule_selector(SplashScene::GoToMenuScene), 2);
 
-	auto backgrowndSprite = Sprite::create("The-Little-Prince.png");
+	auto backgrowndSprite = Sprite::create("SS.jpg");
 	backgrowndSprite->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 
 	this->addChild(backgrowndSprite);

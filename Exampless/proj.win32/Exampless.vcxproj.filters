@@ -10,6 +10,9 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Enemy">
+      <UniqueIdentifier>{0c922a31-cac8-4350-8d04-78a67ab532d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -56,6 +59,18 @@
     </ClCompile>
     <ClCompile Include="..\Classes\CustomMap.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EnemyPuppet.cpp">
+      <Filter>src\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EnemyPuppeteer.cpp">
+      <Filter>src\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Puppet.cpp">
+      <Filter>src\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Enemy.cpp">
+      <Filter>src\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +127,24 @@
     </ClInclude>
     <ClInclude Include="..\Classes\cocos_custom.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EnemyPuppet.h">
+      <Filter>src\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EnemyPuppeteer.h">
+      <Filter>src\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Puppet.h">
+      <Filter>src\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\IGameWorld.h">
+      <Filter>src\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\IPuppeteer.h">
+      <Filter>src\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Enemy.h">
+      <Filter>src\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

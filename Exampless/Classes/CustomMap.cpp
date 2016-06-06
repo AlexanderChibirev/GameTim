@@ -6,6 +6,7 @@ namespace
 {
 const char C_LAYER_NAME[] = "tiles";
 const char C_OBSTACLES_LAYER_NAME[] = "obstacles";
+const char C_OBSTACLES_LAYER_NAME_FOR_ENEMY[] = "obstaclesForEnemy";
 const char C_UNITS_LAYER_NAME[] = "units";
 const char C_PASSABILITY_PROP[] = "pass";
 const char C_HERO_TYPE_KEY[] = "hero";
@@ -133,6 +134,14 @@ bool CCustomMap::CanWalkDirectly(const Vec2 &from, const Vec2 &to) const
         return path.Intersects(rect);
     });
 }
+bool  CCustomMap::CanWalkDirectlyForEnemy(const cocos2d::Vec2 &from, const cocos2d::Vec2 &to) const
+{
+	SLine path(TMXTiledMap::convertToNodeSpace(from),
+		TMXTiledMap::convertToNodeSpace(to));
+	return std::none_of(m_obstaclesForEnemy.begin(), m_obstaclesForEnemy.end(), [=](const Rect &rect) {
+		return path.Intersects(rect);
+	});
+}
 
 bool CCustomMap::CanStandOn(const Vec2 &worldPosition) const
 {
@@ -168,7 +177,7 @@ std::vector<Vec2> CCustomMap::GetEnemyWorldPositions() const
 
 bool CCustomMap::init(const std::string &tmxFile)
 {
-    return initWithTMXFile(tmxFile) && InitPassabilityMap() && LoadObstacles() && LoadUnits();
+    return initWithTMXFile(tmxFile) && InitPassabilityMap() && LoadObstacles() && LoadUnits() && LoadObstaclesForEnemy();
 }
 
 bool CCustomMap::InitPassabilityMap()
@@ -209,6 +218,25 @@ bool CCustomMap::LoadObstacles()
         return false;
     }
     return true;
+}
+
+bool CCustomMap::LoadObstaclesForEnemy()
+{
+	TMXObjectGroup *group = TMXTiledMap::getObjectGroup(C_OBSTACLES_LAYER_NAME_FOR_ENEMY);
+	try
+	{
+		std::vector<cocos2d::Rect> obstacles;
+		for (Value object : group->getObjects())
+		{
+			obstacles.emplace_back(AsRect(object.asValueMap()));
+		}
+		std::swap(obstacles, m_obstaclesForEnemy);
+	}
+	catch (const std::exception &)
+	{
+		return false;
+	}
+	return true;
 }
 
 bool CCustomMap::LoadUnits()

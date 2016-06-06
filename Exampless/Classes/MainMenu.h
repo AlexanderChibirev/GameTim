@@ -13,9 +13,6 @@ public:
 	// implement the "static create()" method manually
 	CREATE_FUNC(MainMenu);
 private:
-	void OnMenuClose(cocos2d::Ref* pSender);
-	void OnMenuPlay(cocos2d::Ref* pSender);
-	void OnOptionsPlay(cocos2d::Ref* pSender);
 	void GoToGameScene(cocos2d::Ref *sender);
 };
 

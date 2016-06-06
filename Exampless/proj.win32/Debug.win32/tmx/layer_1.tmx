@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="50" tilewidth="32" tileheight="32" nextobjectid="110">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="50" tilewidth="32" tileheight="32" nextobjectid="121">
  <tileset firstgid="1" name="bg" tilewidth="32" tileheight="32" tilecount="2220" columns="60">
   <image source="bg.png" width="1920" height="1200"/>
  </tileset>
@@ -13,7 +13,7 @@
   <object id="63" x="1603.83" y="800" width="96.1693" height="59.5138"/>
   <object id="64" x="427.309" y="1357.58" width="371.57" height="109.091"/>
   <object id="65" x="1467.7" y="837.576" width="450.485" height="201.818"/>
-  <object id="66" x="630.03" y="1140.52" width="160.879" height="217.061"/>
+  <object id="66" x="630.03" y="1153" width="160.879" height="204.581"/>
   <object id="79" x="689.348" y="481.818" width="1447.02" height="36"/>
   <object id="80" x="1699.06" y="676.606" width="64.5758" height="19"/>
   <object id="81" x="1463.82" y="806.303" width="69.5152" height="36"/>
@@ -47,9 +47,19 @@
   <object id="73" type="npc" x="1532.77" y="1190.12" width="26.7564" height="28.4827">
    <ellipse/>
   </object>
-  <object id="74" type="npc" x="1572.77" y="1379.12" width="26.7564" height="28.4827">
+  <object id="74" type="npc" x="8.77" y="1019.12" width="26.7564" height="28.4827">
    <ellipse/>
   </object>
-  <object id="90" type="hero" x="149.121" y="1123.18" width="102" height="128"/>
+  <object id="90" type="hero" x="33.121" y="1327.18" width="102" height="128"/>
+ </objectgroup>
+ <objectgroup name="obstaclesForEnemy">
+  <object id="112" x="426" y="1356" width="370" height="104"/>
+  <object id="114" x="635" y="0" width="153" height="1596"/>
+  <object id="115" x="685" y="520" width="207" height="218"/>
+  <object id="116" x="687" y="482" width="1455" height="40"/>
+  <object id="117" x="1101" y="676" width="370" height="594"/>
+  <object id="118" x="1471" y="832" width="445" height="204"/>
+  <object id="119" x="1819" y="1034" width="105" height="218"/>
+  <object id="120" x="199" y="994" width="91" height="104"/>
  </objectgroup>
 </map>

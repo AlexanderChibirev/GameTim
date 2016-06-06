@@ -10,7 +10,7 @@ public:
     /// @param from - point in world coordinates
     /// @param to - point in world coordinates
     virtual bool CanWalkDirectly(const cocos2d::Vec2 &from, const cocos2d::Vec2 &to)const = 0;
-
+	//bool CanWalkDirectlyForEnemy(const Vec2 &from, const Vec2 &to) const = 0;
     /// @param worldPosition - point in world coordinates
     virtual bool CanStandOn(const cocos2d::Vec2 &worldPosition) const = 0;
 };
